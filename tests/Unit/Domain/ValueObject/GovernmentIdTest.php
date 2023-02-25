@@ -9,7 +9,7 @@ class GovernmentIdTest extends TestCase
 {
     public function test_should_return_value_when_json_serialize(): void
     {
-        $governmentIdValue = '12345678912';
+        $governmentIdValue = '11111111111';
 
         $governmentId = GovernmentId::create($governmentIdValue);
 

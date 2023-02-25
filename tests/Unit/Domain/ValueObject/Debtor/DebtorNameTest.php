@@ -9,7 +9,7 @@ class DebtorNameTest extends TestCase
 {
     public function test_should_return_value_when_json_serialize(): void
     {
-        $debtorNameValue = 'John';
+        $debtorNameValue = 'John Doe';
 
         $debtorName = DebtorName::create($debtorNameValue);
 

@@ -9,7 +9,7 @@ class DebtorEmailTest extends TestCase
 {
     public function test_should_return_value_when_json_serialize(): void
     {
-        $debtorEmailValue = 'john@email.com';
+        $debtorEmailValue = 'johndoe@kanastra.com.br';
 
         $debtorEmail = DebtorEmail::create($debtorEmailValue);
 
