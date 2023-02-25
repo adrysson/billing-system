@@ -3,12 +3,13 @@
 namespace Tests\Stubs\Domain\ValueObject\Debt;
 
 use App\Domain\ValueObject\Debt\DebtAmount;
+use Tests\Stubs\FakerGenerator;
 
 class DebtAmountStub
 {
     public static function random(): DebtAmount
     {
-        $faker = \Faker\Factory::create('pt_BR');
+        $faker = FakerGenerator::make();
         return DebtAmount::create($faker->randomFloat());
     }
 }
