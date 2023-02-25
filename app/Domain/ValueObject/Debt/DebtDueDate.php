@@ -12,7 +12,7 @@ class DebtDueDate implements \JsonSerializable
 
     public static function create(string $value): self
     {
-        return new self($value);
+        return new self(date('Y-m-d', strtotime($value)));
     }
 
     public function jsonSerialize(): string

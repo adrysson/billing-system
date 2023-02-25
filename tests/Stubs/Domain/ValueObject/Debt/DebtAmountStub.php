@@ -10,6 +10,6 @@ class DebtAmountStub
     public static function random(): DebtAmount
     {
         $faker = FakerGenerator::make();
-        return DebtAmount::create($faker->randomFloat());
+        return DebtAmount::create($faker->randomFloat(2, 0, 99999));
     }
 }
