@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domain\Collection;
 
 use App\Domain\Collection\DebtCollection;
-use App\Domain\Iterator\DebtIterator;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entity\DebtStub;
 

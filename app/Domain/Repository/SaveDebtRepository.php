@@ -2,9 +2,9 @@
 
 namespace App\Domain\Repository;
 
-use App\Domain\Entity\Debt;
+use App\Domain\Collection\DebtCollection;
 
 interface SaveDebtRepository
 {
-    public function save(Debt $debt): bool;
+    public function saveAll(DebtCollection $debts): bool;
 }
