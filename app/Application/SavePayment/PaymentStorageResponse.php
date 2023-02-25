@@ -20,7 +20,7 @@ class PaymentStorageResponse implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            self::STATUS_FIELD => $this->paymentStorageStatus,
+            self::STATUS_FIELD => $this->paymentStorageStatus->name,
             self::MESSAGE_FIELD => match ($this->paymentStorageStatus) {
                 PaymentStorageStatus::IN_PROGRESS => self::IN_PROGRESS_MESSAGE,
                 PaymentStorageStatus::SUCCESS => self::SUCCESS_MESSAGE,

@@ -20,7 +20,7 @@ class DebtsChargerResponse implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            self::STATUS_FIELD => $this->debtsChargeStatus,
+            self::STATUS_FIELD => $this->debtsChargeStatus->name,
             self::MESSAGE_FIELD => match($this->debtsChargeStatus) {
                 DebtsChargeStatus::IN_PROGRESS => self::IN_PROGRESS_MESSAGE,
                 DebtsChargeStatus::SUCCESS => self::SUCCESS_MESSAGE,

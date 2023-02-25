@@ -14,7 +14,7 @@ class DebtsStorageResponseTest extends TestCase
         $response = new DebtsStorageResponse($status);
 
         $this->assertEquals(json_encode([
-            DebtsStorageResponse::STATUS_FIELD => $status,
+            DebtsStorageResponse::STATUS_FIELD => $status->name,
             DebtsStorageResponse::MESSAGE_FIELD => DebtsStorageResponse::IN_PROGRESS_MESSAGE,
         ]), json_encode($response));
     }
@@ -25,7 +25,7 @@ class DebtsStorageResponseTest extends TestCase
         $response = new DebtsStorageResponse($status);
 
         $this->assertEquals(json_encode([
-            DebtsStorageResponse::STATUS_FIELD => $status,
+            DebtsStorageResponse::STATUS_FIELD => $status->name,
             DebtsStorageResponse::MESSAGE_FIELD => DebtsStorageResponse::SUCCESS_MESSAGE,
         ]), json_encode($response));
     }
@@ -36,7 +36,7 @@ class DebtsStorageResponseTest extends TestCase
         $response = new DebtsStorageResponse($status);
 
         $this->assertEquals(json_encode([
-            DebtsStorageResponse::STATUS_FIELD => $status,
+            DebtsStorageResponse::STATUS_FIELD => $status->name,
             DebtsStorageResponse::MESSAGE_FIELD => DebtsStorageResponse::FAIL_MESSAGE,
         ]), json_encode($response));
     }

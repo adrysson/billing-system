@@ -19,7 +19,7 @@ class DebtsStorageResponse implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            self::STATUS_FIELD => $this->debtsStorageStatus,
+            self::STATUS_FIELD => $this->debtsStorageStatus->name,
             self::MESSAGE_FIELD => match($this->debtsStorageStatus) {
                 DebtsStorageStatus::IN_PROGRESS => self::IN_PROGRESS_MESSAGE,
                 DebtsStorageStatus::SUCCESS => self::SUCCESS_MESSAGE,
