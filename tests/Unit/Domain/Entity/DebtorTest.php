@@ -3,26 +3,20 @@
 namespace Tests\Unit\Domain\Entity;
 
 use App\Domain\Entity\Debtor;
-use App\Domain\ValueObject\Debtor\DebtorEmail;
-use App\Domain\ValueObject\Debtor\DebtorName;
-use App\Domain\ValueObject\GovernmentId;
 use PHPUnit\Framework\TestCase;
+use Tests\Stubs\Domain\ValueObject\Debtor\DebtorEmailStub;
+use Tests\Stubs\Domain\ValueObject\Debtor\DebtorNameStub;
+use Tests\Stubs\Domain\ValueObject\GovernmentIdStub;
 
 class DebtorTest extends TestCase
 {
     public function test_should_return_debtor_data_when_json_serialize(): void
     {
-        $governmentIdValue = '12345678912';
+        $governmentId = GovernmentIdStub::random();
 
-        $governmentId = GovernmentId::create($governmentIdValue);
+        $debtorEmail = DebtorEmailStub::random();
 
-        $debtorEmailValue = 'john@email.com';
-
-        $debtorEmail = DebtorEmail::create($debtorEmailValue);
-
-        $debtorNameValue = 'John';
-
-        $debtorName = DebtorName::create($debtorNameValue);
+        $debtorName = DebtorNameStub::random();
 
         $debtor = new Debtor(
             name: $debtorName,
