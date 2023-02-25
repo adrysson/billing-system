@@ -3,16 +3,15 @@
 namespace Tests\Feature\Infraestructure\Repository\Eloquent;
 
 use App\Domain\Collection\DebtCollection;
-use App\Domain\Entity\Debt;
 use App\Domain\Enum\DebtsStorageStatus;
 use App\Infraestructure\Repository\Eloquent\EloquentDebtRepository;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Tests\Stubs\Domain\Entity\DebtStub;
 
 class EloquentDebtRepositoryTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     public function test_should_must_persist_data_in_database_and_return_success_status_when_valid_data_is_sent()
     {
