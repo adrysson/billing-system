@@ -13,8 +13,8 @@ class DebtsStorage
 
     public function __invoke(DebtCollection $debts): DebtsStorageResponse
     {
-        $saveInProgress = $this->debtRepository->saveAll($debts);
+        $debtStorageStatus = $this->debtRepository->saveAll($debts);
 
-        return new DebtsStorageResponse($saveInProgress);
+        return new DebtsStorageResponse($debtStorageStatus);
     }
 }
