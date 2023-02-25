@@ -35,8 +35,8 @@ class PaymentStorage
             debt: $debt,
         );
 
-        $paymentSaved = $this->paymentRepository->save($payment);
+        $paymentStorageStatus = $this->paymentRepository->save($payment);
 
-        return new PaymentStorageResponse($paymentSaved);
+        return new PaymentStorageResponse($paymentStorageStatus);
     }
 }

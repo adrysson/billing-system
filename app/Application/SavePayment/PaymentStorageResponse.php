@@ -2,31 +2,30 @@
 
 namespace App\Application\SavePayment;
 
+use App\Domain\Enum\PaymentStorageStatus;
+
 class PaymentStorageResponse implements \JsonSerializable
 {
+    public const STATUS_FIELD = 'status';
     public const MESSAGE_FIELD = 'message';
-    public const PAYMENT_SAVED_FIELD = 'payment_saved';
 
-    public const SUCCESS_MESSAGE = 'O pagamento foi salvo com sucesso.';
+    public const IN_PROGRESS_MESSAGE = 'O pagamento está sendo processado e em breve será salvo.';
+    public const SUCCESS_MESSAGE = 'O pagamento fooi salvo com sucesso.';
+    public const FAIL_MESSAGE = 'Não foi possível salvar ao pagamento, tente novamente.';
 
-    public const FAIL_MESSAGE = 'Não foi possível salvar o pagamento.';
-
-    public function __construct(private bool $paymentSaved)
+    public function __construct(private PaymentStorageStatus $paymentStorageStatus)
     {
     }
 
     public function jsonSerialize(): array
     {
-        $response = [
-            self::PAYMENT_SAVED_FIELD => $this->paymentSaved,
-            self::MESSAGE_FIELD => self::SUCCESS_MESSAGE,
+        return [
+            self::STATUS_FIELD => $this->paymentStorageStatus,
+            self::MESSAGE_FIELD => match ($this->paymentStorageStatus) {
+                PaymentStorageStatus::IN_PROGRESS => self::IN_PROGRESS_MESSAGE,
+                PaymentStorageStatus::SUCCESS => self::SUCCESS_MESSAGE,
+                PaymentStorageStatus::FAILED => self::FAIL_MESSAGE,
+            },
         ];
-
-        if (!$this->paymentSaved) {
-            $response[self::MESSAGE_FIELD] = self::FAIL_MESSAGE;
-        }
-
-        return $response;
     }
-
 }

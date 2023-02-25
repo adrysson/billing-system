@@ -4,6 +4,7 @@ namespace Tests\Unit\Application\SavePayment;
 
 use App\Application\SavePayment\PaymentStorage;
 use App\Application\SavePayment\PaymentStorageResponse;
+use App\Domain\Enum\PaymentStorageStatus;
 use App\Domain\Repository\FindDebtRepository;
 use App\Domain\Repository\SavePaymentRepository;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +15,8 @@ use Tests\Stubs\Domain\ValueObject\Payment\PaymentTimeStub;
 
 class PaymentStorageTest extends TestCase
 {
-    public function test_should_return_payment_storage_response_when_invoke()
+    /** @dataProvider provideDebtsStorageStatus */
+    public function test_should_return_payment_storage_response_when_invoke(PaymentStorageStatus $paymentStorageStatus)
     {
         $debt = DebtStub::random();
 
@@ -25,7 +27,7 @@ class PaymentStorageTest extends TestCase
 
         $paymentRepository = \Mockery::mock(SavePaymentRepository::class);
         $paymentRepository->shouldReceive('save')
-            ->andReturn(true);
+            ->andReturn($paymentStorageStatus);
 
         $paymentTime = PaymentTimeStub::random();
         $paymentAmount = PaymentAmountStub::random();
@@ -44,5 +46,16 @@ class PaymentStorageTest extends TestCase
         );
 
         $this->assertInstanceOf(PaymentStorageResponse::class, $response);
+    }
+
+    public static function provideDebtsStorageStatus(): \Iterator
+    {
+        $paymentStorageStatusCases = PaymentStorageStatus::cases();
+
+        foreach ($paymentStorageStatusCases as $paymentStorageStatus) {
+            yield 'status-' . $paymentStorageStatus->name => [
+                'status' => $paymentStorageStatus,
+            ];
+        }
     }
 }
