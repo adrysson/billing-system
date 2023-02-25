@@ -3,14 +3,14 @@
 namespace Tests\Unit\Application\SaveDebts;
 
 use App\Application\SaveDebts\DebtsStorageResponse;
-use App\Domain\Enum\DebtStorageStatus;
+use App\Domain\Enum\DebtsStorageStatus;
 use PHPUnit\Framework\TestCase;
 
 class DebtsStorageResponseTest extends TestCase
 {
-    public function test_should_return_message_of_save_debt_in_progress_when_save_in_progress()
+    public function test_should_return_message_of_save_debts_in_progress_when_save_in_progress()
     {
-        $status = DebtStorageStatus::IN_PROGRESS;
+        $status = DebtsStorageStatus::IN_PROGRESS;
         $response = new DebtsStorageResponse($status);
 
         $this->assertEquals(json_encode([
@@ -19,9 +19,9 @@ class DebtsStorageResponseTest extends TestCase
         ]), json_encode($response));
     }
 
-    public function test_should_return_message_of_debt_saved_when_sucess_save()
+    public function test_should_return_message_of_debts_saved_when_sucess_save()
     {
-        $status = DebtStorageStatus::SUCCESS;
+        $status = DebtsStorageStatus::SUCCESS;
         $response = new DebtsStorageResponse($status);
 
         $this->assertEquals(json_encode([
@@ -30,9 +30,9 @@ class DebtsStorageResponseTest extends TestCase
         ]), json_encode($response));
     }
 
-    public function test_should_return_message_of_save_debt_failed_when_fail_save()
+    public function test_should_return_message_of_save_debts_failed_when_fail_save()
     {
-        $status = DebtStorageStatus::FAILED;
+        $status = DebtsStorageStatus::FAILED;
         $response = new DebtsStorageResponse($status);
 
         $this->assertEquals(json_encode([

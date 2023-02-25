@@ -3,9 +3,9 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Collection\DebtCollection;
-use App\Domain\Enum\DebtStorageStatus;
+use App\Domain\Enum\DebtsStorageStatus;
 
 interface SaveDebtRepository
 {
-    public function saveAll(DebtCollection $debts): DebtStorageStatus;
+    public function saveAll(DebtCollection $debts): DebtsStorageStatus;
 }
