@@ -2,11 +2,10 @@
 
 namespace Tests\Unit\Domain\Entity;
 
-use App\Domain\Entity\Debt;
 use App\Domain\Entity\Payment;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entity\DebtStub;
-use Tests\Stubs\Domain\ValueObject\Payment\PayDayStub;
+use Tests\Stubs\Domain\ValueObject\Payment\PaymentTimeStub;
 use Tests\Stubs\Domain\ValueObject\Payment\PayerNameStub;
 use Tests\Stubs\Domain\ValueObject\Payment\PaymentAmountStub;
 
@@ -14,7 +13,7 @@ class PaymentTest extends TestCase
 {
     public function test_should_return_payment_data_when_json_serialize(): void
     {
-        $payDay = PayDayStub::random();
+        $paymentTime = PaymentTimeStub::random();
 
         $paymentAmount = PaymentAmountStub::random();
 
@@ -23,14 +22,14 @@ class PaymentTest extends TestCase
         $debt = DebtStub::random();
 
         $payment = new Payment(
-            payDay: $payDay,
+            paymentTime: $paymentTime,
             amount: $paymentAmount,
             payerName: $payerName,
             debt: $debt,
         );
 
         $this->assertEquals(json_encode([
-            Payment::PAY_DAY => $payDay->value,
+            Payment::PAY_DAY => $paymentTime->value,
             Payment::AMOUNT => $paymentAmount->value,
             Payment::PAYER_NAME => $payerName->value,
             Payment::DEBT => $debt->jsonSerialize(),

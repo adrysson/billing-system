@@ -2,7 +2,7 @@
 
 namespace App\Domain\ValueObject\Payment;
 
-class PayDay implements \JsonSerializable
+class PaymentTime implements \JsonSerializable
 {
     protected function __construct(
         public readonly string $value
