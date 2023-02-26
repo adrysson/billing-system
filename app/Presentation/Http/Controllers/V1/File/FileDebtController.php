@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Presentation\Http\Controllers\V1\Csv;
+namespace App\Presentation\Http\Controllers\V1\File;
 
 use App\Application\SaveDebts\DebtsStorage;
 use App\Presentation\Http\Controllers\Controller;
-use App\Presentation\Http\Requests\V1\Csv\CsvStoreDebtsRequest;
+use App\Presentation\Http\Requests\V1\File\FileStoreDebtsRequest;
 
-class CsvDebtController extends Controller
+class FileDebtController extends Controller
 {
     public function __construct(
         private DebtsStorage $debtsStorage,
@@ -14,7 +14,7 @@ class CsvDebtController extends Controller
     {
     }
 
-    public function store(CsvStoreDebtsRequest $request)
+    public function store(FileStoreDebtsRequest $request)
     {
         $response = ($this->debtsStorage)($request->debts());
 

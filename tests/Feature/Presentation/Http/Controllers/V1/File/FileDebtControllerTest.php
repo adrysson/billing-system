@@ -6,16 +6,15 @@ use App\Application\SaveDebts\DebtsStorageResponse;
 use App\Domain\Enum\DebtsStorageStatus;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
-class CsvDebtControllerTest extends TestCase
+class FileDebtControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
     public function test_should_return_success_response_when_upload_debts_file_saved_sucessful(): void
     {
-        $response = $this->postJson('/api/v1/csv/debts', [
+        $response = $this->postJson('/api/v1/file/debts', [
             'file' => new UploadedFile(resource_path('examples/debts-example.csv'), 'debts-example.csv', null, null, true)
         ]);
 
@@ -28,7 +27,7 @@ class CsvDebtControllerTest extends TestCase
 
     public function test_should_return_error_response_when_upload_debts_file_has_errors()
     {
-        $response = $this->postJson('/api/v1/csv/debts', [
+        $response = $this->postJson('/api/v1/file/debts', [
             'file' => new UploadedFile(resource_path('examples/debts-with-errors-example.csv'), 'debts-example.csv', null, null, true)
         ]);
 

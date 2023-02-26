@@ -2,7 +2,7 @@
 
 namespace App\Infraestructure\Adapter;
 
-use App\Domain\Adapter\DebtReceiver;
+use App\Domain\Adapter\FileDebtReceiver;
 use App\Domain\Collection\DebtCollection;
 use App\Domain\Entity\Debt;
 use App\Domain\Entity\Debtor;
@@ -13,7 +13,7 @@ use App\Domain\ValueObject\Debtor\DebtorEmail;
 use App\Domain\ValueObject\Debtor\DebtorName;
 use App\Domain\ValueObject\GovernmentId;
 
-class CsvDebtReceiver implements DebtReceiver
+class CsvFileDebtReceiver implements FileDebtReceiver
 {
     public const DEBTOR_NAME = 'name';
     public const DEBTOR_GOVERNMENT_ID = 'governmentId';

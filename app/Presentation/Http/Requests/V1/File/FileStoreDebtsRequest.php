@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Presentation\Http\Requests\V1\Csv;
+namespace App\Presentation\Http\Requests\V1\File;
 
-use App\Domain\Adapter\DebtReceiver;
+use App\Domain\Adapter\FileDebtReceiver;
 use App\Domain\Collection\DebtCollection;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Validator;
 
-class CsvStoreDebtsRequest extends FormRequest
+class FileStoreDebtsRequest extends FormRequest
 {
     public const FILE = 'file';
 
-    private DebtReceiver $fileDebtReceiver;
+    private FileDebtReceiver $fileDebtReceiver;
 
     private DebtCollection $debts;
 
     public function authorize(): bool
     {
-        $this->fileDebtReceiver = app(DebtReceiver::class);
+        $this->fileDebtReceiver = app(FileDebtReceiver::class);
 
         return true;
     }

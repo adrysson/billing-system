@@ -1,6 +1,6 @@
 <?php
 
-use App\Presentation\Http\Controllers\V1\Csv\CsvDebtController;
+use App\Presentation\Http\Controllers\V1\File\FileDebtController;
 use App\Presentation\Http\Controllers\V1\Webhook\WebhookPaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function() {
-    Route::post('/csv/debts', [CsvDebtController::class, 'store']);
+    Route::post('/file/debts', [FileDebtController::class, 'store']);
     Route::post('/webhook/payments', [WebhookPaymentController::class, 'store']);
 });
