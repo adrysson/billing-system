@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "6ccf4982-61cc-46a6-873b-d19e8a8c92bf",
+		"name": "Billing System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5024850"
+	},
+	"item": [
+		{
+			"name": "Add Debts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/adrysson/Workspace/billing-system/resources/examples/debts-example.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/file/debts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"file",
+						"debts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Webhook Add Payment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"debtId\": \"8291\",\n\t\"paidAt\": \"2022-06-09 10:00:00\",\n\t\"paidAmount\": 50,\n\t\"paidBy\": \"John Doe\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/webhook/payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"webhook",
+						"payments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
