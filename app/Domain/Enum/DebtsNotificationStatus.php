@@ -2,7 +2,7 @@
 
 namespace App\Domain\Enum;
 
-enum DebtsChargeStatus
+enum DebtsNotificationStatus
 {
     case IN_PROGRESS;
     case SUCCESS;

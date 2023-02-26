@@ -1,20 +1,20 @@
 <?php
 
-namespace Tests\Unit\Application\ChargeDebts;
+namespace Tests\Unit\Application\NotifyDebts;
 
-use App\Application\ChargeDebts\DebtsCharger;
-use App\Application\ChargeDebts\DebtsChargerResponse;
+use App\Application\NotifyDebts\DebtsNotifier;
+use App\Application\NotifyDebts\DebtsNotifierResponse;
 use App\Domain\Collection\DebtCollection;
-use App\Domain\Enum\DebtsChargeStatus;
-use App\Domain\Repository\ChargeDebtsRepository;
+use App\Domain\Enum\DebtsNotificationStatus;
+use App\Domain\Repository\NotifyDebtsRepository;
 use App\Domain\Repository\GetPendingDebtsRepository;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entity\DebtStub;
 
-class DebtsChargerTest extends TestCase
+class DebtsNotifierTest extends TestCase
 {
-    /** @dataProvider provideDebtsChargeStatus */
-    public function test_should_return_debts_charge_response_when_invoke(DebtsChargeStatus $status)
+    /** @dataProvider provideDebtsNotificationStatus */
+    public function test_should_return_debts_notify_response_when_invoke(DebtsNotificationStatus $status)
     {
         $debts = new DebtCollection;
 
@@ -26,23 +26,23 @@ class DebtsChargerTest extends TestCase
         $getPendingDebtsRepository->shouldReceive('getPendings')
             ->andReturn($debts);
 
-        $chargeDebtRepository = \Mockery::mock(ChargeDebtsRepository::class);
-        $chargeDebtRepository->shouldReceive('chargeAll')
+        $notifyDebtRepository = \Mockery::mock(NotifyDebtsRepository::class);
+        $notifyDebtRepository->shouldReceive('notify')
             ->andReturn($status);
 
-        $debtsCharger = new DebtsCharger(
+        $debtsCharger = new DebtsNotifier(
             getPendingDebtsRepository: $getPendingDebtsRepository,
-            chargeDebtsRepository: $chargeDebtRepository,
+            notifyDebtsRepository: $notifyDebtRepository,
         );
 
         $response = $debtsCharger($debts);
 
-        $this->assertInstanceOf(DebtsChargerResponse::class, $response);
+        $this->assertInstanceOf(DebtsNotifierResponse::class, $response);
     }
 
-    public static function provideDebtsChargeStatus(): \Iterator
+    public static function provideDebtsNotificationStatus(): \Iterator
     {
-        $debtsChargerStatusCases = DebtsChargeStatus::cases();
+        $debtsChargerStatusCases = DebtsNotificationStatus::cases();
 
         foreach ($debtsChargerStatusCases as $debtsChargerStatus) {
             yield 'status-' . $debtsChargerStatus->name => [
