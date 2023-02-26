@@ -6,6 +6,7 @@ use App\Application\SaveDebts\DebtsStorageResponse;
 use App\Domain\Enum\DebtsStorageStatus;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
 class CsvDebtControllerTest extends TestCase
@@ -31,10 +32,6 @@ class CsvDebtControllerTest extends TestCase
             'file' => new UploadedFile(resource_path('examples/debts-with-errors-example.csv'), 'debts-example.csv', null, null, true)
         ]);
 
-        $response->assertStatus(500);
-
-        $this->assertArrayHasKey('message', $response->original);
-        $this->assertArrayHasKey('exception', $response->original);
-        $this->assertEquals(\InvalidArgumentException::class, $response->original['exception']);
+        $response->assertStatus(422);
     }
 }
