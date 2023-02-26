@@ -21,14 +21,14 @@ class EloquentDebtRepositoryTest extends TestCase
 
         $debts = new DebtCollection;
 
-        $items = [
+        $debtItems = [
             DebtStub::random(),
             DebtStub::random(),
             DebtStub::random(),
         ];
 
-        foreach ($items as $item) {
-            $debts->push($item);
+        foreach ($debtItems as $debtItem) {
+            $debts->push($debtItem);
         }
 
         $status = $repository->saveAll($debts);
@@ -39,49 +39,62 @@ class EloquentDebtRepositoryTest extends TestCase
             $debtsSaved[] = $repository->find($debt->id);
         }
 
-        $this->assertEquals(json_encode($items), json_encode($debtsSaved));
+        $this->assertEquals(json_encode($debtItems), json_encode($debtsSaved));
     }
 
-    public function test_should_return_only_debts_without_payments()
+    public function test_should_get_pendings_method_return_only_debts_no_full_amount_paid()
     {
         $repository = new EloquentDebtRepository;
 
         $debts = new DebtCollection;
 
-        $items = [
+        $partialPayment = PaymentStub::partial();
+
+        $pendingDebtItems = [
             DebtStub::random(),
             DebtStub::random(),
             DebtStub::random(),
+            $partialPayment->debt,
         ];
 
-        foreach ($items as $item) {
-            $debts->push($item);
+        foreach ($pendingDebtItems as $pendingDebtItem) {
+            $debts->push($pendingDebtItem);
         }
 
-        $payment = PaymentStub::random();
+        $completePayment = PaymentStub::complete();
 
-        $debtWithPayment = $payment->debt;
+        $debtWithCompletePayment = $completePayment->debt;
 
-        $debts->push($debtWithPayment);
+        $debts->push($debtWithCompletePayment);
 
         $status = $repository->saveAll($debts);
 
         $this->assertEquals(DebtsStorageStatus::SUCCESS, $status);
 
         Payment::insert([
-            Payment::DEBT_ID => $payment->debt->id->value,
-            Payment::PAID_AT => $payment->paymentTime->value,
-            Payment::AMOUNT => $payment->amount->value,
-            Payment::PAID_BY => $payment->payerName->value,
+            [
+                Payment::DEBT_ID => $partialPayment->debt->id->value,
+                Payment::PAID_AT => $partialPayment->paymentTime->value,
+                Payment::AMOUNT => $partialPayment->amount->value,
+                Payment::PAID_BY => $partialPayment->payerName->value,
+            ],
+            [
+                Payment::DEBT_ID => $completePayment->debt->id->value,
+                Payment::PAID_AT => $completePayment->paymentTime->value,
+                Payment::AMOUNT => $completePayment->amount->value,
+                Payment::PAID_BY => $completePayment->payerName->value,
+            ],
         ]);
 
         $pendingDebts = $repository->getPendings();
 
+        $this->assertCount(count($pendingDebtItems), $pendingDebts);
+
         foreach ($pendingDebts->getIterator() as $debt) {
             $pendingDebtItems[] = $debt;
-            $this->assertTrue(in_array($debt, $items));
+            $this->assertTrue(in_array($debt, $pendingDebtItems));
         }
 
-        $this->assertFalse(in_array($debtWithPayment, $pendingDebtItems));
+        $this->assertFalse(in_array($debtWithCompletePayment, $pendingDebtItems));
     }
 }

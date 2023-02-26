@@ -52,7 +52,8 @@ class EloquentDebtRepository implements SaveDebtRepository, FindDebtRepository, 
     {
         $debts = new DebtCollection;
 
-        $pendingDebts = DebtModel::doesntHave('payment')->get();
+        $pendingDebts = DebtModel::whereRaw('(select sum(`payments`.`amount`) from `payments` where `debts`.`id` = `payments`.`debt_id`) < `debts`.`amount`')
+            ->orDoesntHave('payments')->get();
 
         foreach ($pendingDebts as $debt) {
             $debts->push($this->makeDebtFromModel($debt));

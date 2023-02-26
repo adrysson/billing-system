@@ -10,7 +10,7 @@ class PaymentStorageResponse implements \JsonSerializable
     public const MESSAGE_FIELD = 'message';
 
     public const IN_PROGRESS_MESSAGE = 'O pagamento está sendo processado e em breve será salvo.';
-    public const SUCCESS_MESSAGE = 'O pagamento fooi salvo com sucesso.';
+    public const SUCCESS_MESSAGE = 'O pagamento foi salvo com sucesso.';
     public const FAIL_MESSAGE = 'Não foi possível salvar ao pagamento, tente novamente.';
 
     public function __construct(private PaymentStorageStatus $paymentStorageStatus)

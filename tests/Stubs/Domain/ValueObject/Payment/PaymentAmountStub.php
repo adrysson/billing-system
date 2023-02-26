@@ -12,4 +12,10 @@ class PaymentAmountStub
         $faker = FakerGenerator::make();
         return PaymentAmount::create($faker->randomFloat(2, 0, 99999));
     }
+
+    public static function randomLessThan(float $max): PaymentAmount
+    {
+        $faker = FakerGenerator::make();
+        return PaymentAmount::create($faker->randomFloat(2, 0, $max - 0.01));
+    }
 }
