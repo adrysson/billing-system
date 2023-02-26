@@ -7,5 +7,5 @@ use App\Domain\Enum\DebtsNotificationStatus;
 
 interface NotifyDebtsRepository
 {
-    public function notify(DebtCollection $debt): DebtsNotificationStatus;
+    public function notify(DebtCollection $debts): DebtsNotificationStatus;
 }

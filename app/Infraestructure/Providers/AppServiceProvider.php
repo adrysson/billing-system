@@ -5,9 +5,11 @@ namespace App\Infraestructure\Providers;
 use App\Domain\Adapter\DebtReceiver;
 use App\Domain\Repository\FindDebtRepository;
 use App\Domain\Repository\GetPendingDebtsRepository;
+use App\Domain\Repository\NotifyDebtsRepository;
 use App\Domain\Repository\SaveDebtRepository;
 use App\Infraestructure\Adapter\CsvDebtReceiver;
 use App\Infraestructure\Repository\Eloquent\EloquentDebtRepository;
+use App\Infraestructure\Repository\Log\LogDebtRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SaveDebtRepository::class, EloquentDebtRepository::class);
         $this->app->bind(FindDebtRepository::class, EloquentDebtRepository::class);
         $this->app->bind(GetPendingDebtsRepository::class, EloquentDebtRepository::class);
+        $this->app->bind(NotifyDebtsRepository::class, LogDebtRepository::class);
     }
 
     /**
