@@ -12,7 +12,7 @@ class LogDebtRepository implements NotifyDebtsRepository
 	public function notify(DebtCollection $debts): DebtsNotificationStatus
 	{
 		foreach ($debts->getIterator() as $debt) {
-			Log::info('Notificação enviada para dívida de código ' . $debt->id->value);
+			Log::info(json_encode($debt));
 		}
 
 		return DebtsNotificationStatus::SUCCESS;
