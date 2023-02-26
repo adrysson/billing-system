@@ -1,6 +1,7 @@
 <?php
 
 use App\Presentation\Http\Controllers\DebtController;
+use App\Presentation\Http\Controllers\WebhookPaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/v1/debts', [DebtController::class, 'store']);
+Route::group(['prefix' => 'v1'], function() {
+    Route::post('/debts', [DebtController::class, 'store']);
+    Route::post('/webhook/payments', [WebhookPaymentController::class, 'store']);
+});

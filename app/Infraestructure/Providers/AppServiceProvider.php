@@ -10,6 +10,7 @@ use App\Domain\Repository\SaveDebtRepository;
 use App\Domain\Repository\SavePaymentRepository;
 use App\Infraestructure\Adapter\CsvDebtReceiver;
 use App\Infraestructure\Repository\Eloquent\EloquentDebtRepository;
+use App\Infraestructure\Repository\Eloquent\EloquentPaymentRepository;
 use App\Infraestructure\Repository\Log\LogDebtRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FindDebtRepository::class, EloquentDebtRepository::class);
         $this->app->bind(GetPendingDebtsRepository::class, EloquentDebtRepository::class);
         $this->app->bind(NotifyDebtsRepository::class, LogDebtRepository::class);
-        $this->app->bind(SavePaymentRepository::class, EloquentDebtRepository::class);
+        $this->app->bind(SavePaymentRepository::class, EloquentPaymentRepository::class);
     }
 
     /**

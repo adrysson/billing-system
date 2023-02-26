@@ -22,6 +22,6 @@ class DebtControllerTest extends TestCase
 
         $expectedResponse = new DebtsStorageResponse(DebtsStorageStatus::SUCCESS);
 
-        $response->assertJson($expectedResponse->jsonSerialize());
+        $this->assertEquals(json_encode($expectedResponse), json_encode($response->original));
     }
 }
