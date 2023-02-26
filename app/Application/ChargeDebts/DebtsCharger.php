@@ -17,7 +17,7 @@ class DebtsCharger
 
     public function __invoke(): DebtsChargerResponse
     {
-        $debts = $this->getPendingDebtsRepository->getAll();
+        $debts = $this->getPendingDebtsRepository->getPendings();
 
         $debtsChargeStatus = $this->chargeDebtsRepository->chargeAll($debts);
 

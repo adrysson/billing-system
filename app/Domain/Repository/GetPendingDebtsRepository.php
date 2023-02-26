@@ -6,5 +6,5 @@ use App\Domain\Collection\DebtCollection;
 
 interface GetPendingDebtsRepository
 {
-    public function getAll(): DebtCollection;
+    public function getPendings(): DebtCollection;
 }

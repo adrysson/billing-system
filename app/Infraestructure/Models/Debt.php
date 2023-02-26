@@ -2,8 +2,8 @@
 
 namespace App\Infraestructure\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Debt extends Model
 {
@@ -13,8 +13,6 @@ class Debt extends Model
     public const EMAIL = 'email';
     public const AMOUNT = 'amount';
     public const DUE_DATE = 'due_date';
-
-    use HasFactory;
 
     protected $fillable = [
         self::ID,
@@ -28,4 +26,9 @@ class Debt extends Model
     protected $casts = [
         self::DUE_DATE => 'date',
     ];
+
+    public function payment(): HasOne
+    {
+        return $this->hasOne(Payment::class);
+    }
 }

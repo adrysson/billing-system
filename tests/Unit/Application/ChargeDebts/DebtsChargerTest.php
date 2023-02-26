@@ -23,7 +23,7 @@ class DebtsChargerTest extends TestCase
         $debts->push(DebtStub::random());
 
         $getPendingDebtsRepository = \Mockery::mock(GetPendingDebtsRepository::class);
-        $getPendingDebtsRepository->shouldReceive('getAll')
+        $getPendingDebtsRepository->shouldReceive('getPendings')
             ->andReturn($debts);
 
         $chargeDebtRepository = \Mockery::mock(ChargeDebtsRepository::class);

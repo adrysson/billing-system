@@ -7,6 +7,7 @@ use App\Domain\Entity\Debt;
 use App\Domain\Entity\Debtor;
 use App\Domain\Enum\DebtsStorageStatus;
 use App\Domain\Repository\FindDebtRepository;
+use App\Domain\Repository\GetPendingDebtsRepository;
 use App\Domain\Repository\SaveDebtRepository;
 use App\Domain\ValueObject\Debt\DebtAmount;
 use App\Domain\ValueObject\Debt\DebtDueDate;
@@ -16,7 +17,7 @@ use App\Domain\ValueObject\Debtor\DebtorName;
 use App\Domain\ValueObject\GovernmentId;
 use App\Infraestructure\Models\Debt as DebtModel;
 
-class EloquentDebtRepository implements SaveDebtRepository, FindDebtRepository
+class EloquentDebtRepository implements SaveDebtRepository, FindDebtRepository, GetPendingDebtsRepository
 {
     public function saveAll(DebtCollection $debts): DebtsStorageStatus
     {
@@ -44,6 +45,24 @@ class EloquentDebtRepository implements SaveDebtRepository, FindDebtRepository
     {
         $debt = DebtModel::find($debtId->value);
 
+        return $this->makeDebtFromModel($debt);
+    }
+
+    public function getPendings(): DebtCollection
+    {
+        $debts = new DebtCollection;
+
+        $pendingDebts = DebtModel::doesntHave('payment')->get();
+
+        foreach ($pendingDebts as $debt) {
+            $debts->push($this->makeDebtFromModel($debt));
+        }
+
+        return $debts;
+    }
+
+    private function makeDebtFromModel(DebtModel $debt): Debt
+    {
         $debtorName = $debt->{DebtModel::NAME};
         $governmentId = $debt->{DebtModel::GOVERNMENT_ID};
         $debtorEmail = $debt->{DebtModel::EMAIL};
