@@ -8,7 +8,7 @@ use App\Domain\ValueObject\Payment\PayerName;
 use App\Domain\ValueObject\Payment\PaymentAmount;
 use App\Domain\ValueObject\Payment\PaymentTime;
 use App\Presentation\Http\Controllers\Controller;
-use App\Presentation\Http\Requests\WebhookStorePaymentRequest;
+use App\Presentation\Http\Requests\V1\Webhook\WebhookStorePaymentRequest;
 
 class WebhookPaymentController extends Controller
 {

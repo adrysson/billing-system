@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Presentation\Http\Requests;
+namespace App\Presentation\Http\Requests\V1\Csv;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDebtsRequest extends FormRequest
+class CsvStoreDebtsRequest extends FormRequest
 {
     public const FILE = 'file';
 

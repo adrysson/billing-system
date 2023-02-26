@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presentation\Http\Requests;
+namespace App\Presentation\Http\Requests\V1\Webhook;
 
 use Illuminate\Foundation\Http\FormRequest;
 
