@@ -3,10 +3,10 @@
 namespace Tests\Stubs\Domain\Entity;
 
 use App\Domain\Entity\Payment;
-use App\Domain\ValueObject\Payment\PaymentAmount;
+use App\Domain\ValueObject\Currency;
+use Tests\Stubs\Domain\ValueObject\CurrencyStub;
 use Tests\Stubs\Domain\ValueObject\Payment\PaymentTimeStub;
 use Tests\Stubs\Domain\ValueObject\Payment\PayerNameStub;
-use Tests\Stubs\Domain\ValueObject\Payment\PaymentAmountStub;
 
 class PaymentStub
 {
@@ -14,7 +14,7 @@ class PaymentStub
     {
         return new Payment(
             paymentTime: PaymentTimeStub::random(),
-            amount: PaymentAmountStub::random(),
+            amount: CurrencyStub::random(),
             payerName: PayerNameStub::random(),
             debt: DebtStub::random(),
         );
@@ -24,7 +24,7 @@ class PaymentStub
     {
         $debt = DebtStub::random();
 
-        $amount = PaymentAmountStub::randomLessThan($debt->amount->value);
+        $amount = CurrencyStub::randomLessThan($debt->amount);
 
         return new Payment(
             paymentTime: PaymentTimeStub::random(),
@@ -38,7 +38,7 @@ class PaymentStub
     {
         $debt = DebtStub::random();
 
-        $amount = PaymentAmount::create($debt->amount->value);
+        $amount = Currency::create($debt->amount->value);
 
         return new Payment(
             paymentTime: PaymentTimeStub::random(),

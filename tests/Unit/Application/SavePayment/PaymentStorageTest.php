@@ -9,8 +9,8 @@ use App\Domain\Repository\FindDebtRepository;
 use App\Domain\Repository\SavePaymentRepository;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entity\DebtStub;
+use Tests\Stubs\Domain\ValueObject\CurrencyStub;
 use Tests\Stubs\Domain\ValueObject\Payment\PayerNameStub;
-use Tests\Stubs\Domain\ValueObject\Payment\PaymentAmountStub;
 use Tests\Stubs\Domain\ValueObject\Payment\PaymentTimeStub;
 
 class PaymentStorageTest extends TestCase
@@ -30,7 +30,7 @@ class PaymentStorageTest extends TestCase
             ->andReturn($paymentStorageStatus);
 
         $paymentTime = PaymentTimeStub::random();
-        $paymentAmount = PaymentAmountStub::random();
+        $paymentAmount = CurrencyStub::random();
         $payerName = PayerNameStub::random();
 
         $paymentStorage = new PaymentStorage(

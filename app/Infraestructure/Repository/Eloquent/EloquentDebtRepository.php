@@ -3,19 +3,24 @@
 namespace App\Infraestructure\Repository\Eloquent;
 
 use App\Domain\Collection\DebtCollection;
+use App\Domain\Collection\PaymentCollection;
 use App\Domain\Entity\Debt;
 use App\Domain\Entity\Debtor;
+use App\Domain\Entity\Payment;
 use App\Domain\Enum\DebtsStorageStatus;
 use App\Domain\Repository\FindDebtRepository;
 use App\Domain\Repository\GetPendingDebtsRepository;
 use App\Domain\Repository\SaveDebtRepository;
-use App\Domain\ValueObject\Debt\DebtAmount;
+use App\Domain\ValueObject\Currency;
 use App\Domain\ValueObject\Debt\DebtDueDate;
 use App\Domain\ValueObject\Debt\DebtId;
 use App\Domain\ValueObject\Debtor\DebtorEmail;
 use App\Domain\ValueObject\Debtor\DebtorName;
 use App\Domain\ValueObject\GovernmentId;
+use App\Domain\ValueObject\Payment\PayerName;
+use App\Domain\ValueObject\Payment\PaymentTime;
 use App\Infraestructure\Models\Debt as DebtModel;
+use App\Infraestructure\Models\Payment as PaymentModel;
 
 class EloquentDebtRepository implements SaveDebtRepository, FindDebtRepository, GetPendingDebtsRepository
 {
@@ -78,11 +83,21 @@ class EloquentDebtRepository implements SaveDebtRepository, FindDebtRepository, 
         $debtAmount = $debt->{DebtModel::AMOUNT};
         $debtDueDate = $debt->{DebtModel::DUE_DATE};
 
+        $payments = new PaymentCollection;
+        foreach ($debt->{DebtModel::PAYMENTS} as $payment) {
+            $payments->push(new Payment(
+                paymentTime: PaymentTime::create($payment->{PaymentModel::PAID_AT}),
+                amount: Currency::create($payment->{PaymentModel::AMOUNT}),
+                payerName: PayerName::create($payment->{PaymentModel::PAID_BY})
+            ));
+        }
+
         return new Debt(
             debtor: $debtor,
             id: DebtId::create($debtId),
-            amount: DebtAmount::create($debtAmount),
+            amount: Currency::create($debtAmount),
             dueDate: DebtDueDate::create($debtDueDate),
+            payments: $payments,
         );
     }
 }

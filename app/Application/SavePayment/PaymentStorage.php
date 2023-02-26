@@ -5,9 +5,9 @@ namespace App\Application\SavePayment;
 use App\Domain\Entity\Payment;
 use App\Domain\Repository\FindDebtRepository;
 use App\Domain\Repository\SavePaymentRepository;
+use App\Domain\ValueObject\Currency;
 use App\Domain\ValueObject\Debt\DebtId;
 use App\Domain\ValueObject\Payment\PayerName;
-use App\Domain\ValueObject\Payment\PaymentAmount;
 use App\Domain\ValueObject\Payment\PaymentTime;
 
 class PaymentStorage
@@ -22,7 +22,7 @@ class PaymentStorage
     public function __invoke(
         DebtId $debtId,
         PaymentTime $paymentTime,
-        PaymentAmount $paymentAmount,
+        Currency $paymentAmount,
         PayerName $payerName,
     ): PaymentStorageResponse
     {

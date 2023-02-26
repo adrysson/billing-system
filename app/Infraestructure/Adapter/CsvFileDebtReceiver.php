@@ -6,7 +6,7 @@ use App\Domain\Adapter\FileDebtReceiver;
 use App\Domain\Collection\DebtCollection;
 use App\Domain\Entity\Debt;
 use App\Domain\Entity\Debtor;
-use App\Domain\ValueObject\Debt\DebtAmount;
+use App\Domain\ValueObject\Currency;
 use App\Domain\ValueObject\Debt\DebtDueDate;
 use App\Domain\ValueObject\Debt\DebtId;
 use App\Domain\ValueObject\Debtor\DebtorEmail;
@@ -42,7 +42,7 @@ class CsvFileDebtReceiver implements FileDebtReceiver
             $debt = new Debt(
                 debtor: $debtor,
                 id: DebtId::create($item[self::DEBT_ID]),
-                amount: DebtAmount::create($item[self::DEBT_AMOUNT]),
+                amount: Currency::create($item[self::DEBT_AMOUNT]),
                 dueDate: DebtDueDate::create($item[self::DEBT_DUE_DATE]),
             );
 

@@ -5,7 +5,7 @@ namespace Tests\Unit\Domain\Entity;
 use App\Domain\Entity\Debt;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entity\DebtorStub;
-use Tests\Stubs\Domain\ValueObject\Debt\DebtAmountStub;
+use Tests\Stubs\Domain\ValueObject\CurrencyStub;
 use Tests\Stubs\Domain\ValueObject\Debt\DebtDueDateStub;
 use Tests\Stubs\Domain\ValueObject\Debt\DebtIdStub;
 
@@ -17,7 +17,7 @@ class DebtTest extends TestCase
 
         $debtId = DebtIdStub::random();
 
-        $debtAmount = DebtAmountStub::random();
+        $debtAmount = CurrencyStub::random();
 
         $debtDueDate = DebtDueDateStub::random();
 
@@ -33,6 +33,8 @@ class DebtTest extends TestCase
             Debt::ID => $debtId->value,
             Debt::AMOUNT => $debtAmount->value,
             Debt::DUE_DATE => $debtDueDate->value,
+            Debt::PAYMENTS => [],
+            Debt::PENDING_AMOUNT => $debt->pendingAmount(),
         ]), json_encode($debt));
     }
 }

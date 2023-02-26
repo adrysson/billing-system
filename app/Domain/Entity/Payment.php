@@ -3,9 +3,9 @@
 namespace App\Domain\Entity;
 
 use App\Domain\Entity\Debt;
+use App\Domain\ValueObject\Currency;
 use App\Domain\ValueObject\Payment\PaymentTime;
 use App\Domain\ValueObject\Payment\PayerName;
-use App\Domain\ValueObject\Payment\PaymentAmount;
 
 class Payment implements \JsonSerializable
 {
@@ -16,9 +16,9 @@ class Payment implements \JsonSerializable
 
     public function __construct(
         public readonly PaymentTime $paymentTime,
-        public readonly PaymentAmount $amount,
+        public readonly Currency $amount,
         public readonly PayerName $payerName,
-        public readonly Debt $debt,
+        public readonly ?Debt $debt = null,
     )
     {
     }

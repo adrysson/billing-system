@@ -13,6 +13,7 @@ class Debt extends Model
     public const EMAIL = 'email';
     public const AMOUNT = 'amount';
     public const DUE_DATE = 'due_date';
+    public const PAYMENTS = 'payments';
 
     protected $fillable = [
         self::ID,

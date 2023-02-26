@@ -5,9 +5,9 @@ namespace Tests\Unit\Domain\Entity;
 use App\Domain\Entity\Payment;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\Entity\DebtStub;
+use Tests\Stubs\Domain\ValueObject\CurrencyStub;
 use Tests\Stubs\Domain\ValueObject\Payment\PaymentTimeStub;
 use Tests\Stubs\Domain\ValueObject\Payment\PayerNameStub;
-use Tests\Stubs\Domain\ValueObject\Payment\PaymentAmountStub;
 
 class PaymentTest extends TestCase
 {
@@ -15,7 +15,7 @@ class PaymentTest extends TestCase
     {
         $paymentTime = PaymentTimeStub::random();
 
-        $paymentAmount = PaymentAmountStub::random();
+        $paymentAmount = CurrencyStub::random();
 
         $payerName = PayerNameStub::random();
 

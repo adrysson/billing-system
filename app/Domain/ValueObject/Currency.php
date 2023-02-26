@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\ValueObject\Payment;
+namespace App\Domain\ValueObject;
 
-class PaymentAmount implements \JsonSerializable
+class Currency implements \JsonSerializable
 {
     protected function __construct(
         public readonly float $value
