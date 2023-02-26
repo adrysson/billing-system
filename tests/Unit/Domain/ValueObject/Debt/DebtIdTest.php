@@ -9,7 +9,7 @@ class DebtIdTest extends TestCase
 {
     public function test_should_return_value_when_json_serialize(): void
     {
-        $debtIdValue = '8291';
+        $debtIdValue = 8291;
 
         $debtId = DebtId::create($debtIdValue);
 

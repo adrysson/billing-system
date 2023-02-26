@@ -5,17 +5,17 @@ namespace App\Domain\ValueObject\Debt;
 class DebtId implements \JsonSerializable
 {
     protected function __construct(
-        public readonly string $value
+        public readonly int $value
     )
     {
     }
 
-    public static function create(string $value): self
+    public static function create(int $value): self
     {
         return new self($value);
     }
 
-    public function jsonSerialize(): string
+    public function jsonSerialize(): int
     {
         return $this->value;
     }

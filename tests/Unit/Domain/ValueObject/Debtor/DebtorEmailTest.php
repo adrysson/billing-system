@@ -15,4 +15,13 @@ class DebtorEmailTest extends TestCase
 
         $this->assertEquals(json_encode($debtorEmail->value), json_encode($debtorEmail));
     }
+
+    public function test_should_throw_invalid_argument_exception_when_email_is_invalid()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $debtorEmailValue = 'johndoe';
+
+        DebtorEmail::create($debtorEmailValue);
+    }
 }

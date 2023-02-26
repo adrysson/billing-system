@@ -12,7 +12,7 @@ class PaymentTime implements \JsonSerializable
 
     public static function create(string $value): self
     {
-        return new self($value);
+        return new self(date('Y-m-d H:i:s', strtotime($value)));
     }
 
     public function jsonSerialize(): string
