@@ -24,4 +24,17 @@ class CsvDebtControllerTest extends TestCase
 
         $this->assertEquals(json_encode($expectedResponse), json_encode($response->original));
     }
+
+    public function test_should_return_error_response_when_upload_debts_file_has_errors()
+    {
+        $response = $this->postJson('/api/v1/csv/debts', [
+            'file' => new UploadedFile(resource_path('examples/debts-with-errors-example.csv'), 'debts-example.csv', null, null, true)
+        ]);
+
+        $response->assertStatus(500);
+
+        $this->assertArrayHasKey('message', $response->original);
+        $this->assertArrayHasKey('exception', $response->original);
+        $this->assertEquals(\InvalidArgumentException::class, $response->original['exception']);
+    }
 }
