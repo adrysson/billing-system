@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Presentation\Http\Controllers;
+namespace Tests\Feature\Presentation\Http\Controllers\V1\Webhook;
 
 use App\Application\SavePayment\PaymentStorageResponse;
 use App\Domain\Enum\PaymentStorageStatus;

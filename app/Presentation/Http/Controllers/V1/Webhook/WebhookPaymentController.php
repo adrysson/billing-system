@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Presentation\Http\Controllers;
+namespace App\Presentation\Http\Controllers\V1\Webhook;
 
 use App\Application\SavePayment\PaymentStorage;
 use App\Domain\ValueObject\Debt\DebtId;
 use App\Domain\ValueObject\Payment\PayerName;
 use App\Domain\ValueObject\Payment\PaymentAmount;
 use App\Domain\ValueObject\Payment\PaymentTime;
+use App\Presentation\Http\Controllers\Controller;
 use App\Presentation\Http\Requests\WebhookStorePaymentRequest;
 
 class WebhookPaymentController extends Controller

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Presentation\Http\Controllers;
+namespace App\Presentation\Http\Controllers\V1\Csv;
 
 use App\Application\SaveDebts\DebtsStorage;
 use App\Domain\Adapter\DebtReceiver;
+use App\Presentation\Http\Controllers\Controller;
 use App\Presentation\Http\Requests\StoreDebtsRequest;
 
-class DebtController extends Controller
+class CsvDebtController extends Controller
 {
     public function __construct(
         private DebtReceiver $debtReceiver,
